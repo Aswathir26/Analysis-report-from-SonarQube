@@ -1,6 +1,5 @@
-# Analysis-report-from-SonarQube
+# Do SAST and download Analysis report from SonarQube through pipeline
 
- # Analysis report from SonarQube Deployed in AKS
 
 **SAST**
 
@@ -24,17 +23,22 @@ Step 2: Deploy Sonarqube
     $ helm repo add bitnami https://charts.bitnami.com/bitnami
     $ helm install -f values.yaml sonarqube bitnami/sonarqube -n sonarqube
     
-Step 3: Do SAST with a project repo by following the steps given in sinarqube 
+Step 3: Do SAST with a project repo by following the steps given in sonarqube 
+Note : Use pipeline.yml (upto line number 32)
 
 
 
-**Step 2: Get analysis report of SonarQube Output**
+**Step 2: Install plugin**
+
+USE SONARQUBE MARKETPLACE TO INSTALL CNES REPORT PLUGIN 
+
+OR
 
 Step 1: Download and install CNES Report plugin jar file
 
 - Click here to download jar file for plugin:
 
-https://github.com/cnescatlab/sonar-cnes-report/releases/download/4.0.0/sonar-cnes-report-4.0.0.jar
+https://github.com/cnescatlab/sonar-cnes-report/releases/download/4.1.1/sonar-cnes-report-4.1.1.jar
 
 ref:https://github.com/cnescatlab/sonar-cnes-report/releases
 
@@ -43,31 +47,15 @@ Step 2: copy jar file to sonarqube plugin directory from local system:
 
 kubectl cp < jar name > < pod name >:< path of plugin directory >
 
-      $ kubectl cp sonar-cnes-report-4.0.0.jar sonarqube-7cb949bc84-8ztw2:/opt/bitnami/sonarqube/extensions/plugins/
-  
-Step 3: Restart sonarqube
-
-Step 4: get the help about cnesreport:
-
-java -jar < jar name > -h
-
-     $ java -jar sonar-cnes-report-4.0.0.jar -h
-  
-Step 5: export sonarqube output:
-
-    
-java -jar sonar-cnes-report-4.0.0.jar -p < projectkey > -t < token >
-
-      $ java -jar sonar-cnes-report-4.0.0.jar -p TE-DevOps_javunit -t 005ac6a16120ff82e05c779888d3848dbb497e70
-  
-  Give ls command to view the reports 
-  
-Step 6: Copy report to local system:
-
-kubectl cp < pod name >:< path of file >/< file > < file >
-    
-    $ kubectl cp sonarqube-7cb949bc84-8ztw2:/opt/bitnami/sonarqube/extensions/plugins/2022-04-28-java-maven-junit-helloworld-analysis-report.docx report1.docx
+      $ kubectl cp sonar-cnes-report-4.1.1.jar sonarqube-7cb949bc84-8ztw2:/opt/bitnami/sonarqube/extensions/plugins/
+      
+note : Restart sonarqube
 
 
+**Step 3: Download sonarqube analysis report and save it to pipeline artifact**
 
-Step 7: Convert exported report to PDF file 
+Run the full pipeline
+
+then check pipeline artifact we can see reports there
+
+download and Convert report to PDF file 
