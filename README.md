@@ -1,4 +1,4 @@
-# Do SAST and download Analysis report from SonarQube through pipeline
+# Do SAST and download Analysis report from SonarQube through azure pipeline
 
 
 **SAST**
