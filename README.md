@@ -24,7 +24,8 @@ Step 2: Deploy Sonarqube
     $ helm install -f values.yaml sonarqube bitnami/sonarqube -n sonarqube
     
 Step 3: Do SAST with a project repo by following the steps given in sonarqube 
-Note : Use pipeline.yml (upto line number 32)
+
+Note : Use pipeline.yml (upto line number 36)
 
 
 
