@@ -43,9 +43,9 @@ steps:
     namespace: 'default'
     command: 'exec'
     arguments: |
-      -it sonarqube-56d675d945-64rxd -- bash -c "cd /opt/bitnami/sonarqube/extensions/plugins/ ; 
+      -it <sonarqube pode name> -- bash -c "cd /opt/bitnami/sonarqube/extensions/plugins/ ; 
       mkdir reports ;
-      java -jar sonar-cnes-report-4.1.1.jar -p TE-DevOps_java-maven-junit -t 369b2f099d19b81e662d1101fa2947d060327fdf ;
+      java -jar sonar-cnes-report-4.1.1.jar -p <projectkey> -t <token> ;
       mv *.docx *.csv *.md *.xlsx ./reports "
     secretType: 'generic'
   
@@ -56,7 +56,7 @@ steps:
     kubernetesServiceEndpoint: 'kubectl_1'
     namespace: 'default'
     command: 'cp'
-    arguments: 'sonarqube-56d675d945-64rxd:/opt/bitnami/sonarqube/extensions/plugins/reports $(Pipeline.Workspace)/reports'
+    arguments: '<sonarqube pod name>:/opt/bitnami/sonarqube/extensions/plugins/reports $(Pipeline.Workspace)/reports'
     secretType: 'generic'
   
 - task: PublishPipelineArtifact@1
